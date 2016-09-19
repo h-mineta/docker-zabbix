@@ -1,0 +1,37 @@
+version: '2'
+services:
+  zabbix-server:
+    image: zabbix/zabbix-server-mysql:alpine-3.2-latest
+    container_name: zabbix-server
+    environment:
+      - ZBX_HOSTNAME=zabbix-server
+      - DB_SERVER_HOST=192.168.1.1
+      - MYSQL_USER=zabbix
+      - MYSQL_PASSWORD=zabbix
+      - MYSQL_DATABASE=zabbix
+      - ZBX_STARTPOLLERS=5
+      - ZBX_STARTPINGERS=2
+      - ZBX_STARTDISCOVERERS=2
+      - ZBX_STARTDBSYNCERS=4
+    ports:
+      - "10051:10051"
+      - "162/udp:162/udp"
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /usr/share/snmp/mibs:/var/lib/zabbix/mibs
+
+  zabbix-web:
+    image: zabbix/zabbix-web-nginx-mysql:alpine-3.2-latest
+    container_name: zabbix-web
+    environment:
+      - DB_SERVER_HOST=192.168.1.1
+      - MYSQL_USER=zabbix
+      - MYSQL_PASSWORD=zabbix
+      - MYSQL_DATABASE=zabbix
+    links:
+      - zabbix-server
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
