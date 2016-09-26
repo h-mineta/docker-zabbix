@@ -21,7 +21,8 @@ services:
       - /usr/share/snmp/mibs:/var/lib/zabbix/mibs
 
   zabbix-web:
-    image: zabbix/zabbix-web-nginx-mysql:alpine-3.2-latest
+    #image: zabbix/zabbix-web-nginx-mysql:alpine-3.2-latest
+    build: zabbix-web
     container_name: zabbix-web
     environment:
       - DB_SERVER_HOST=192.168.1.1
