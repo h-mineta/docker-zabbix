@@ -19,6 +19,9 @@ services:
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - /usr/share/snmp/mibs:/var/lib/zabbix/mibs
+    networks:
+      zbxnet:
+        ipv4_address: 192.168.255.1
 
   zabbix-web:
     #image: zabbix/zabbix-web-nginx-mysql:alpine-3.2-latest
@@ -36,3 +39,14 @@ services:
       - "443:443"
     volumes:
       - /etc/localtime:/etc/localtime:ro
+    networks:
+      zbxnet:
+        ipv4_address: 192.168.255.2
+
+networks:
+  zbxnet:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+      - subnet: 192.168.255.0/24

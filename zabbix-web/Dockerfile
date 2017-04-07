@@ -4,13 +4,17 @@ ENV TZ=Asia/Tokyo
 
 RUN set -x \
 	&& apk upgrade --update \
-	&& apk add --virtual .build-deps \
-		build-base \
-		python3-dev \
 	&& apk add \
 		curl \
 		ca-certificates \
 		python3 \
+		sudo \
+		nmap \
+	\
+	&& apk add --virtual .build-deps \
+		build-base \
+		python3-dev \
+	\
 	&& pip3 install --upgrade pip \
 	&& pip3 install py-zabbix ruamel.yaml \
 	&& cd /tmp \
