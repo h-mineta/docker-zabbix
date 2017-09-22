@@ -1,4 +1,4 @@
-FROM zabbix/zabbix-web-nginx-mysql:alpine-3.2-latest
+FROM zabbix/zabbix-web-nginx-mysql:alpine-latest
 
 ENV TZ=Asia/Tokyo
 

@@ -1,7 +1,7 @@
 version: '2'
 services:
   zabbix-server:
-    image: zabbix/zabbix-server-mysql:alpine-3.2-latest
+    image: zabbix/zabbix-server-mysql:alpine-latest
     container_name: zabbix-server
     environment:
       - ZBX_HOSTNAME=zabbix-server
@@ -13,6 +13,7 @@ services:
       - ZBX_STARTPINGERS=2
       - ZBX_STARTDISCOVERERS=2
       - ZBX_STARTDBSYNCERS=4
+      - ZBX_DEBUGLEVEL=2
     ports:
       - "10051:10051"
       - "162:162"
@@ -24,7 +25,6 @@ services:
         ipv4_address: 192.168.255.2
 
   zabbix-web:
-    #image: zabbix/zabbix-web-nginx-mysql:alpine-3.2-latest
     build: zabbix-web
     container_name: zabbix-web
     environment:
@@ -32,6 +32,7 @@ services:
       - MYSQL_USER=zabbix
       - MYSQL_PASSWORD=zabbix
       - MYSQL_DATABASE=zabbix
+      - PHP_TZ="Asia/Tokyo"
     links:
       - zabbix-server
     ports:
