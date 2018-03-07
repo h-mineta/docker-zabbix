@@ -1,4 +1,4 @@
-FROM zabbix/zabbix-web-nginx-mysql:alpine-latest
+FROM zabbix/zabbix-web-nginx-mysql:alpine-3.4-latest
 
 ENV TZ=Asia/Tokyo
 
@@ -10,6 +10,7 @@ RUN set -x \
 		python3 \
 		sudo \
 		nmap \
+		fping \
 	\
 	&& apk add --virtual .build-deps \
 		build-base \

@@ -1,7 +1,7 @@
 version: '2'
 services:
   zabbix-server:
-    image: zabbix/zabbix-server-mysql:alpine-latest
+    image: zabbix/zabbix-server-mysql:alpine-3.4-latest
     container_name: zabbix-server
     environment:
       - ZBX_HOSTNAME=zabbix-server
