@@ -1,7 +1,7 @@
 version: '2'
 services:
   zabbix-server:
-    image: zabbix/zabbix-server-mysql:alpine-3.4-latest
+    image: zabbix/zabbix-server-mysql:alpine-4.2-latest
     container_name: zabbix-server
     environment:
       - ZBX_HOSTNAME=zabbix-server
@@ -20,9 +20,6 @@ services:
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - /usr/share/snmp/mibs:/var/lib/zabbix/mibs
-    networks:
-      zbxnet:
-        ipv4_address: 192.168.255.2
 
   zabbix-web:
     build: zabbix-web
@@ -39,14 +36,3 @@ services:
       - "8080:80"
     volumes:
       - /etc/localtime:/etc/localtime:ro
-    networks:
-      zbxnet:
-        ipv4_address: 192.168.255.3
-
-networks:
-  zbxnet:
-    driver: bridge
-    ipam:
-      driver: default
-      config:
-      - subnet: 192.168.255.0/24

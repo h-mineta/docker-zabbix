@@ -1,4 +1,4 @@
-FROM zabbix/zabbix-web-nginx-mysql:alpine-3.4-latest
+FROM zabbix/zabbix-web-nginx-mysql:alpine-4.2-latest
 
 ENV TZ=Asia/Tokyo
 
@@ -8,28 +8,21 @@ RUN set -x \
 		curl \
 		ca-certificates \
 		python3 \
+		py3-pillow \
 		sudo \
 		nmap \
 		fping \
+		git \
 	\
 	&& apk add --virtual .build-deps \
 		build-base \
 		python3-dev \
 	\
 	&& pip3 install --upgrade pip \
-	&& pip3 install py-zabbix ruamel.yaml \
-	&& cd /tmp \
-	&& curl -L https://github.com/Prototype-X/Zabbix-Network-Weathermap/archive/1.1.zip > /tmp/Zabbix-Network-Weathermap.zip \
-	&& mkdir -p /opt \
-	&& unzip Zabbix-Network-Weathermap.zip -d /opt \
-	&& cd /opt \
-	&& mv Zabbix-Network-Weathermap* Zabbix-Network-Weathermap \
-	&& chmod a+x Zabbix-Network-Weathermap/*.py \
-	\
-	&& sed -i -e "s/^date\.timezone=.*$/date.timezone=\"Asia\/Tokyo\"/" /etc/php5/conf.d/99-zabbix.ini \
+	&& pip3 install py-zabbix ruamel.yaml==0.14.12 \
 	\
 	&& cd /tmp \
-	&& curl -L http://dl.ipafont.ipa.go.jp/IPAexfont/ipaexg00301.zip > /tmp/ipaexg.zip \
+	&& curl -L https://oscdl.ipa.go.jp/IPAexfont/ipaexg00301.zip > /tmp/ipaexg.zip \
 	&& unzip ipaexg.zip \
 	&& mkdir -p /usr/share/fonts/ipa/ \
 	&& mv ipaexg*/*.ttf /usr/share/fonts/ipa/ \
