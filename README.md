@@ -1,2 +1,2 @@
 # docker-zabbix
-docker in zabbix3.2
+docker in zabbix4.2
